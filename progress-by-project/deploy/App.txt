@@ -28,8 +28,8 @@ Ext.define('Rally.technicalservices.Logger',{
             args.push('args['+i+']');
         };
         fn = new Function('args',fn.replace(/args/,args.join(',')));
-        if (!_.isUndefined(console) && !_.isUndefined(console.log))
-            fn(arguments);
+        //if (!_.isUndefined(console) && !_.isUndefined(console.log))
+        //    fn(arguments);
     }
 
 });
