@@ -66,7 +66,7 @@ Ext.define('timebox-selector', {
                 {
                     var release = t.getRecord();
                     this.fireEvent('releasechange',release);
-                    console.log("Publishing Release:", release);
+                    // console.log("Publishing Release:", release);
                     this.publish('timeboxReleaseChanged', release);
                     this._updateIterationCombo(release);
                 },
@@ -131,15 +131,15 @@ Ext.define('timebox-selector', {
         });
     },
     _requestTimebox : function(source) {
-        console.log('Got request timebox message', source);
+//        console.log('Got request timebox message', source);
         var release = this.getReleaseRecord();
-        console.log('release',release);
+        // console.log('release',release);
         if (release) {
             this.publish('timeboxReleaseChanged', release);
         } 
         
         var iteration = this.getIterationRecord();
-        console.log('iteration', iteration);
+        // console.log('iteration', iteration);
         if (iteration) {
             this.publish("timeboxIterationChanged",  iteration);
         }
@@ -213,7 +213,7 @@ Ext.define('Rally.technicalservices.InfoLink',{
                 text = response.responseText;
                 if ( CHECKSUM ) {
                     if ( CHECKSUM !== me._generateChecksum(text) ) {
-                        console.log("Checksums don't match!");
+                        //console.log("Checksums don't match!");
                         if ( me.dialog ) {
                             me.dialog.add({xtype:'container',html:'Checksums do not match'});
                         }
@@ -281,7 +281,8 @@ Ext.define('Rally.technicalservices.Logger',{
                 args.push('args['+i+']');
             };
             fn = new Function('args',fn.replace(/args/,args.join(',')));
-            fn(arguments);
+            if (!_.isUndefined(console) && !_.isUndefined(console.log))
+                fn(arguments);
     }
 
 });
@@ -344,7 +345,7 @@ Ext.define('Rally.technicalservices.CountDownClock',{
     },
     
     setEndDate: function(end_date) {
-        console.log("setEndDate",end_date);
+        //console.log("setEndDate",end_date);
         
         this.endDate = end_date;
         this.updateCounters();
@@ -502,7 +503,7 @@ Ext.define("TSCountdown", {
                 }
             });
         } else {
-            console.log("Countdown, subscribing");
+            //console.log("Countdown, subscribing");
             this.subscribe(this, 'timeboxReleaseChanged', this._changeRelease, this);
             this.subscribe(this, 'timeboxIterationChanged', this._changeIteration, this);
 
