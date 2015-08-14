@@ -28,7 +28,8 @@ Ext.define('Rally.technicalservices.Logger',{
             args.push('args['+i+']');
         };
         fn = new Function('args',fn.replace(/args/,args.join(',')));
-        fn(arguments);
+        if (!_.isUndefined(console) && !_.isUndefined(console.log))
+            fn(arguments);
     }
 
 });
@@ -388,7 +389,7 @@ Ext.define("TSProjectByProject", {
             zIndex: 5 // to put on top
         };
         
-        console.log('plotline', plotline);
+        //console.log('plotline', plotline);
         
         return plotline;
     },
@@ -469,7 +470,7 @@ Ext.define("ProjectStories", function() {
 
         readProjectWorkItems : function(callback) {
 
-            console.log('readProjectWorkItems', self.featureFilter);
+            //console.log('readProjectWorkItems', self.featureFilter);
             
             var fns = [
                 self.readStates,
@@ -491,7 +492,7 @@ Ext.define("ProjectStories", function() {
                 },
                 failure: function(error) {
                     //oh noes!
-                    console.log("Error:",error);
+                    //console.log("Error:",error);
                 }
             });
         },
@@ -544,7 +545,7 @@ Ext.define("ProjectStories", function() {
         },    
 
         readStories : function(projects) {
-            console.log('readStories', projects, self.filter);
+            //console.log('readStories', projects, self.filter);
             var me = this;
 
             var promises = _.map(projects,function(project) {
@@ -559,7 +560,7 @@ Ext.define("ProjectStories", function() {
                     }).then({
                     scope: me,
                     success: function(stories) {
-                        console.log('stories',stories);
+                        //console.log('stories',stories);
                         deferred.resolve(stories);
                     }
                 });
@@ -814,7 +815,7 @@ Ext.define('timebox-selector', {
                 {
                     var release = t.getRecord();
                     this.fireEvent('releasechange',release);
-                    console.log("Publishing Release:", release);
+                    //console.log("Publishing Release:", release);
                     this.publish('timeboxReleaseChanged', release);
                     this._updateIterationCombo(release);
                 },
@@ -879,15 +880,15 @@ Ext.define('timebox-selector', {
         });
     },
     _requestTimebox : function(source) {
-        console.log('Got request timebox message', source);
+        //console.log('Got request timebox message', source);
         var release = this.getReleaseRecord();
-        console.log('release',release);
+        //console.log('release',release);
         if (release) {
             this.publish('timeboxReleaseChanged', release);
         } 
         
         var iteration = this.getIterationRecord();
-        console.log('iteration', iteration);
+        //console.log('iteration', iteration);
         if (iteration) {
             this.publish("timeboxIterationChanged",  iteration);
         }
